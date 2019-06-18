@@ -1,4 +1,4 @@
-import random, urllib
+import random
 
 def CheckIfInputCorrect(wordToGuess, letter, userWords):
     letterCorrect = False
@@ -20,9 +20,6 @@ def PrintUnderlines(wordToGuess, userWords):
 
 def GetRandomWordToGuess(words):
     return words[random.randint(0, len(words) - 1)]
-
-def GetWordFromDictionary():
-    print(urllib.request.urlopen("https://svnweb.freebsd.org/csrg/share/dict/words?view=co&content-type=text/plain"))
 
 #hangman ascii art from https://github.com/chrishorton
 hangmanAscii = ['''
@@ -76,18 +73,18 @@ hangmanAscii = ['''
       |
 =========''']
 
+words = ["python", "programming", "barcelona"]
 userWords = []
 userInput = ""
-wordToGuess = ""
+wordToGuess = GetRandomWordToGuess(words)
 userFails = 0
-GetWordFromDictionary()
 
 while userInput != "q" and userFails < 7:
     PrintUnderlines(wordToGuess, userWords)
 
     if len(wordToGuess) == len(userWords):
         print("You win!")
-        #wordToGuess = GetWordFromDictionary()
+        wordToGuess = GetRandomWordToGuess(words)
         userWords = []
         userFails = 0
     else:    
